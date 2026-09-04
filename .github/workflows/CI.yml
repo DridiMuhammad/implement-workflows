@@ -18,11 +18,15 @@ jobs:
     runs-on: self-hosted
     steps:
       - uses: actions/download-artifact@v4
-      - run: chmod +x build/tests/test_cpu_monitor  # Add this line
+      - run: chmod +x build/tests/test_cpu_monitor
       - run: ctest --test-dir build
 
   deploy:
     needs: test
     runs-on: self-hosted
     steps:
+      - uses: actions/checkout@v4
+      - run: chmod +x deploy.sh
+        shell: bash
       - run: ./deploy.sh
+        shell: bash
