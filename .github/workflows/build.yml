@@ -1,0 +1,23 @@
+name : CI
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: unbuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: make build
+      - uses: actions/upload-artifact@v4
+        with: { name: binaries, path: binairies/ }
+  test:
+    needs: build
+    runs-on: unbuntu-latest
+    steps:
+      - uses: actions/DOWNLOAD-artifact@v4
+      - run: make test
+
+  deploy:
+    needs: test
+    runs-on: unbuntu-latest
+    steps:
+      - run: ./deploy.sh
