@@ -9,7 +9,10 @@ jobs:
       - run: cmake -B build
       - run: cmake --build build
       - uses: actions/upload-artifact@v4
-        with: { name: bin, path: build/cpu_monitor_app }
+        with: 
+          name: build
+          path: build/
+
   test:
     needs: build
     runs-on: ubuntu-latest
