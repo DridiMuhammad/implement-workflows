@@ -6,7 +6,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: gcc -o build/cpu_monitor_app src/cpu_monitor.c
+      - run: cmake -B build
+      - run: cmake --build build
       - uses: actions/upload-artifact@v4
         with: { name: bin, path: build/cpu_monitor_app }
   test:

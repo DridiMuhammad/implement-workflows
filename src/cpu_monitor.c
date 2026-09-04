@@ -1,11 +1,7 @@
 #include "cpu_monitor.h"
 
 #include <stdlib.h>
-#ifdef _WIN32
-#include <windows.h>
-#else
 #include <unistd.h>
-#endif
 
 double cpu_monitor_get_usage_percent(void)
 {
@@ -14,12 +10,9 @@ double cpu_monitor_get_usage_percent(void)
         return -1.0;
     }
 
-#ifdef _WIN32
-    SYSTEM_INFO system_info;
-    GetSystemInfo(&system_info);
-    long num_cores = (long)system_info.dwNumberOfProcessors;
-#else
-    long num_cores = sysconf(_SC_NPROCESSORS_ONLN);
+    long num_cores = 1;
+#ifdef _SC_NPROCESSORS_ONLN
+    num_cores = sysconf(_SC_NPROCESSORS_ONLN);
 #endif
     if (num_cores < 1) {
         num_cores = 1;
