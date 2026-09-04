@@ -18,6 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v4
+      - run: chmod +x build/tests/test_cpu_monitor  # Add this line
       - run: ctest --test-dir build
 
   deploy:
