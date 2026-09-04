@@ -3,7 +3,7 @@ on: [push, pull_request]
 
 jobs:
   build:
-    runs-on: unbuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - run: cmake --build build
@@ -11,13 +11,13 @@ jobs:
         with: { name: bin, path: build/cpu_monitor_app }
   test:
     needs: build
-    runs-on: unbuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v4
       - run: make test
 
   deploy:
     needs: test
-    runs-on: unbuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - run: ./deploy.sh
